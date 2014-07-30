@@ -8,7 +8,7 @@ sudo apt-get update
 
 sudo apt-get install ghc emacs24 git make texinfo cabal-install -y
 
-git clone https://github.com/haskell/haskell-mode.git ~
+git clone https://github.com/haskell/haskell-mode.git ~/haskell-mode
 cd ~/haskell-mode
 sudo make
 
