@@ -10,6 +10,6 @@ sudo apt-get install ghc emacs24 git make texinfo -y
 
 git clone https://github.com/haskell/haskell-mode.git ~
 cd ~/haskell-mode
-make
+sudo make
 
-cp /vagrang/provision/.emacs ~
+cp /vagrant/provision/.emacs ~
