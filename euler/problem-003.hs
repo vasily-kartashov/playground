@@ -3,7 +3,7 @@ module Problem003 where
 main =
   print $ reduce 600851475143 primes
 
-reduce n (p:ps) = if n ==  p then p
+reduce n (p:ps) = if n == p then p
                   else if n `rem` p == 0 then reduce (n `div` p) (p:ps)
                                          else reduce n ps
 
