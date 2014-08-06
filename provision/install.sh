@@ -8,8 +8,8 @@ sudo apt-get update
 
 sudo apt-get install ghc emacs24 git make texinfo cabal-install hlint -y
 
-git clone https://github.com/haskell/haskell-mode.git ~/haskell-mode
-cd ~/haskell-mode
-make all
+sudo git clone https://github.com/haskell/haskell-mode.git /home/vagrant/haskell-mode
+cd /home/vagrant/haskell-mode
+sudo make all
 
-cp /vagrant/provision/.emacs ~
+sudo cp /vagrant/provision/.emacs /home/vagrant
