@@ -4,6 +4,7 @@ main =
   print $ split "abcdefghik" 3
 
 split [] _ = error "Empty list"
-split as n = split' as [] n
-  where split' as ps 0 = (reverse ps, as) 
-        split' (a:as) ps n = split' as (a:ps) (n - 1)
+split as 0 = ([], as)
+split (a:as) n = (a:xs, ys)
+  where (xs, ys) = split as (n - 1)
+
