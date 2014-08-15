@@ -17,7 +17,7 @@ rank cards = rank' : concat groups
         group1size = length (groups !! 0)
         group2size = length (groups !! 1)
         rank'
-          | straight && flash && highestValue == 13 = 9
+          | straight && flash && highestValue == 14 = 9
           | straight && flash                       = 8
           | group1size == 4                         = 7
           | group1size == 3 && group2size == 2      = 6
