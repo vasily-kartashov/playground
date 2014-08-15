@@ -4,12 +4,14 @@ import Data.Char
 import Data.List
 
 main =
-  print $ head $ dropWhile (\f -> length f < 9) $ map family primes
+  print $ head $ familiesOf 8
 
-family x = family' n d
+familiesOf l = concatMap (familyOf l) primes
+
+familyOf l x = filter (\f -> length f >= l) $ map (family n) ds
   where n = show x
-        d = minimum n
-        family' n d
+        ds = filter (\n -> (digitToInt n) + l < 10) $ nub n
+        family n d
           | d `elem` n = filter isPrime $ map read $ map (replace n d) [d .. '9']
           | otherwise = []
 
