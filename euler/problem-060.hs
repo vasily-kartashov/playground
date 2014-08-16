@@ -13,9 +13,8 @@ findExpansion lb ub = map snd $ filter (\g -> fst g >= lb) gs
 expand :: Tree -> Int -> Tree
 expand (n, gs) p = (max n n', (1, [p]) : gs ++ gs')
   where gs' = map (expandGroup p) $ filter (adjGroup p) gs       
-        n' = let ls = map fst gs' in
-             if length ls == 0 then 0
-                               else maximum ls       
+        n' = if length gs' == 0 then 0
+                                else maximum $ map fst gs'
 
 expandGroup :: Int -> Group -> Group
 expandGroup p g = (1 + fst g, p : snd g)
