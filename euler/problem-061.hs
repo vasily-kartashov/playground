@@ -3,7 +3,9 @@ module Problem061 where
 import Data.List
 
 main = 
-  print $ concatMap evolve (permutations pairs)
+  print $ concatMap evolve (permutations' pairs)
+
+permutations' (p:ps) = map (p:) (permutations ps)
 
 pairs :: [[(Int, Int)]]
 pairs = map f [ (\n -> n * (n + 1) `div` 2)
