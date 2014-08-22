@@ -16,3 +16,4 @@ halve as = let l = length as `div` 2 in (take l as, drop l as)
 
 same [] = True
 same (a:as) = all (== a) as
+
