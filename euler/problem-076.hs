@@ -1,12 +1,11 @@
-{-# LANGUAGE NoMonomorphismRestriction #-}
 module Problem076 where
 
 import Data.Function.Memoize
 
 main =
-  print 2
-
--- http://en.wikipedia.org/wiki/Partition_(number_theory)
+  print $ partitions 100
+ 
+partitions :: Integer -> Integer
 partitions = memoize partitions' 
   where partitions' n
           | n < 0     = 0
