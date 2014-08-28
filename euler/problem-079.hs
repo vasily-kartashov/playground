@@ -7,7 +7,7 @@ main = do
   s <- readFile "problem-079.txt"
   let es = edges s
   let vs = vertices s
-  print $ head $ filter (\p -> null (vs \\ p)) $ expand es vs
+  print $ head $ generate es vs
 
 edges = nub . concatMap e . lines
   where e l = let l' = map digitToInt l in
@@ -15,7 +15,7 @@ edges = nub . concatMap e . lines
 
 vertices = nub . concat . (map . map) digitToInt . lines
 
-expand es vs = expand' es ps
+generate es vs = filter (\p -> null (vs \\ p)) $ expand es ps
   where ps = map (\v -> [v]) (vs \\ map snd es)
-        expand' es ps = ps ++ expand' es (concatMap cont ps)
+        expand es ps = ps ++ expand es (concatMap cont ps)
           where cont p = [ p ++ [b] | (a, b) <- es, a == last p]
