@@ -22,6 +22,6 @@ Vagrant.configure("2") do |config|
     config.vagrant.host = :detect
 
     config.vm.provision :shell, inline: "sudo apt-get install dos2unix -y && dos2unix /vagrant/provision/*"
-    config.vm.provision :shell, path: "provision/install.sh"
+    config.vm.provision :shell, path: "provision/install"
 
 end
