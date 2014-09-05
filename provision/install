@@ -1,5 +1,8 @@
 #!/usr//bin/env bash
 
+mkdir -p "$HOME/bin"
+echo 'PATH="$HOME/bin:$PATH"' >> "$HOME/.bashrc"
+
 sudo apt-get update
 sudo apt-get install python-software-properties -y
 
