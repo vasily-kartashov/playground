@@ -23,3 +23,7 @@ emacs -batch -no-site-file -q -f batch-byte-compile cc-*.el
 [ -f "/usr/bin/llc-3.0" ] || sudo ln -s /usr/bin/llc /usr/bin/llc-3.0
 
 sudo cp /vagrant/provision/.emacs /home/vagrant
+
+cd /home/vagrant
+git clone https://github.com/orangeduck/mpc
+
