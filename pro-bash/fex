@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+while true; do
+  read -p "Enter file name: " name
+  if [ -f "$name" ]; then
+    printf "File found: %s\n" "$name"
+    exit 0;
+  else
+    printf "File not found: %s\n" "$name"
+  fi
+done

@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+while true; do
+  read -p "Enter number between 20 and 30 " n
+  case "$n" in
+    *[!0-9]*) printf "%s\n" "Not a number"
+              continue;
+              ;;
+  esac
+  if [ "$n" -lt 20 -o "$n" -gt 30 ]; then
+    printf "%s\n" "Number is not between 20 and 30"
+  else 
+    printf "%s %d\n" "The number is" "$n"
+    break
+  fi
+done
