@@ -1,5 +1,5 @@
 IP = "192.168.66.101"
-NAME = "haskell.dev"
+NAME = "playground"
 
 Vagrant.configure("2") do |config|
 
