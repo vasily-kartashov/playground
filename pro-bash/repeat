@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+repeat()
+{
+  local r=
+  while [ ${#r} -lt $2 ] ; do
+    r=$r$1
+  done
+  printf ${r:0:$2}
+}
