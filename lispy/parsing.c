@@ -5,20 +5,20 @@
 
 int main(int argc, char** argv) {
 
-  mpc_parser_t* Number   = mpc_new("number");
-  mpc_parser_t* Operator = mpc_new("operator");
-  mpc_parser_t* Expr     = mpc_new("expr");
-  mpc_parser_t* Lispy    = mpc_new("lispy");
+  mpc_parser_t* Number     = mpc_new("num");
+  mpc_parser_t* Operator   = mpc_new("op");
+  mpc_parser_t* Expression = mpc_new("exp");
+  mpc_parser_t* Language   = mpc_new("lang");
   
   /* Define them with the following Language */
   mpca_lang(MPCA_LANG_DEFAULT,
-    "                                                     \
-      number   : /-?[0-9]+/ ;                             \
-      operator : '+' | '-' | '*' | '/' ;                  \
-      expr     : <number> | '(' <operator> <expr>+ ')' ;  \
-      lispy    : /^/ <operator> <expr>+ /$/ ;             \
+    "                                            \
+      num  : /-?[0-9]+(\\.[0-9]+)?/ ;            \
+      op   : '+' | '-' | '*' | '/' | '%' ;       \
+      exp  : <num> | '(' <exp> <op> <exp> ')' ;  \
+      lang : /^/ <exp> <op> <exp> /$/ ;  \
     ",
-	    Number, Operator, Expr, Lispy);
+    Number, Operator, Expression, Language);
   
   puts("Lispy Version 0.0.0.0.2");
   puts("Press Ctrl+c to Exit\n");
@@ -30,7 +30,7 @@ int main(int argc, char** argv) {
     
     /* Attempt to parse the user input */
     mpc_result_t r;
-    if (mpc_parse("<stdin>", input, Lispy, &r)) {
+    if (mpc_parse("<stdin>", input, Language, &r)) {
       /* On success print and delete the AST */
       mpc_ast_print(r.output);
       mpc_ast_delete(r.output);
@@ -44,7 +44,7 @@ int main(int argc, char** argv) {
   }
   
   /* Undefine and delete our parsers */
-  mpc_cleanup(4, Number, Operator, Expr, Lispy);
+  mpc_cleanup(4, Number, Operator, Expression, Language);
   
   return 0;
 }  
