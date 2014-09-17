@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+uinfo()
+{
+  printf "%12s: %s\n" \
+    USER  "${USER:-No value}" \
+    PWD   "${PWD:-No value}" \
+    SHELL "${SHELL:-No value}" \
+    HOME  "${HOME:-No value}" \
+    TERM  "${TERM:-No value}"
+} > ${1:-/dev/fd/1}
