@@ -5,3 +5,4 @@
 (add-to-list 'load-path "/home/vagrant/sh-script/")
 (load "sh-script.el")
 
+(add-to-list 'load-path "/home/vagrant/cc-mode/")
