@@ -15,4 +15,7 @@ sudo make all
 sudo ln -s /usr/bin/opt /usr/bin/opt-3.0
 sudo ln -s /usr/bin/llc /usr/bin/llc-3.0
 
+mkdir -p /home/vagrant/sh-script && cd /home/vagrant/sh-script
+wget http://repo.or.cz/w/emacs.git/blob_plain/HEAD:/lisp/progmodes/sh-script.el
+
 sudo cp /vagrant/provision/.emacs /home/vagrant
