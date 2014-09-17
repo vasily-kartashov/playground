@@ -1,16 +1,27 @@
 #!/usr/bin/env bash
 
-isvalidip() {
-  case $1 in
-    "" | *[!0-9.]* | *[!0-9]) return 1 ;;
-  esac
-
+split() {
   local IFS=.
   set -- $1
-  [ $# -eq 4 ] && 
-  [ ${1:-666} -le 255 ] &&
-  [ ${2:-666} -le 255 ] &&
-  [ ${3:-666} -le 255 ] &&
-  [ ${4:-666} -le 255 ]
+  echo $@
 }
+
+len() {
+  echo ${#@}
+}
+
+isvalidip() {
+  local s=$( split $1 )
+  local l=$( len $s )
+  if [ $l -ne 4 ] ; then
+    return 1
+  fi
+  for i in $s ; do
+    if [ "$i" != "${i//[!0-9]/}" ] || [ "$i" -gt 255 ] ; then
+      return 1
+    fi
+  done
+  return 0
+}
+
 
