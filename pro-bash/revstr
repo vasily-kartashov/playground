@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+revstr()
+{
+  local s=$1
+  local r=
+  local t=
+  while [ -n "$s" ] ; do
+   t=${s#?}
+   r=${s%"$t"}$r
+   s=$t
+  done
+  echo "$r"
+}
