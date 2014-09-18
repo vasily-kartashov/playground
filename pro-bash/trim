@@ -36,5 +36,5 @@ trim()
     s=${s#"$b"}
   fi
   
-  echo $s
+  echo "$s"
 }
