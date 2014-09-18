@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+palindrome()
+{
+  local s="${1,,}"
+  local a=
+  local b=
+  local t=
+  while :
+  do
+    case $s in  
+      [a-zA-Z]*) 
+        t="${s#?}" 
+        c=${s%"$t"}
+        s="$t"
+        a="$a$c"
+        b="$c$b"
+      ;;
+      ?*) 
+        s=${s#?}
+      ;;
+      *) 
+        break
+      ;;
+    esac
+  done
+  [ "$a" = "$b" ]
+}
