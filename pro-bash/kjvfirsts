@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+kjvfirsts()
+{
+  local IFS=:
+  head -n ${1:-1} "kjv.txt" | while read book chapter verse text
+  do
+    firstword=${text%% *}
+    printf "%s %s:%s %s\n" "$book" "$chapter" "$verse" "$text"
+  done
+}
