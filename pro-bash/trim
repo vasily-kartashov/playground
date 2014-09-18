@@ -2,10 +2,40 @@
 
 trim()
 {
-  s=$1
-  a=${s##*[!${2:- }]}
-  s=${s%"$a"}
-  b=${s%%[!${2:- }]*} 
-  s=${s#"$b"}
+ 
+  local left
+  local right
+  local OPTIND
+
+  while getopts "lr" opt ; do
+    case "${opt}" in
+      l) left=1
+         ;;
+      r) right=1
+         ;;
+      *) exit 1
+         ;;
+    esac
+  done
+
+  shift "$(( $OPTIND - 1 ))"
+
+  if [ -z $left ] && [ -z $right ] ; then
+    left=1
+    right=1
+  fi
+
+  local s="$1"
+
+  if ! [ -z $right ] ; then
+    a=${s##*[!${2:- }]}
+    s=${s%"$a"}
+  fi
+
+  if ! [ -z $left ] ; then
+    b=${s%%[!${2:- }]*} 
+    s=${s#"$b"}
+  fi
+  
   echo $s
 }
