@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+pr4()
+{
+  local width=$(( (${COLUMNS:-80} - 2) / 4 ))
+  local s=%-$width.${width}s
+  printf "$s $s $s $s\n" "$@"
+}

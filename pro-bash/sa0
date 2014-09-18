@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+sa0()
+{
+  pre=:
+  post=:
+  printf "$pre%s$post\n" "$@"
+}
