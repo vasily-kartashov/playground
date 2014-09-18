@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+spinner="\|/-"
+chars=1
+delay=.12
+prompt="press any key..."
+clearline="\e[K"
+CR="\r"
+
+until read -sn1 -t$delay -p "$prompt" var
+do
+  printf " %.${chars}s$CR" "$spinner"
+  temp=${spinner#?}
+  spinner=$temp${spinner%"$temp"}
+done
+printf "$CR$clearline"
