@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
 trim()
-{
- 
+{ 
   local left
   local right
   local OPTIND
