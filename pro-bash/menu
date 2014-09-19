@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+menu()
+{
+  local IFS=$' \t\n'
+  local num n=1 opt item cmd
+  echo
+
+  for item
+  do
+    printf "  %3d. %s\n" "$n" "${item%%:*}"
+    n=$(( n + 1 ))
+  done
+  echo
+  
+  if [ $# -lt 10 ]
+  then
+    opt=-sn1
+  else
+    opt=
+  fi
+  read -p " (1 to $#) " $opt num
+  
+  case $num in
+    [qQ0] | "" ) 
+      return 
+      ;;
+    *[!0-9]* | 0*)
+      printf "\aInvalid response: %s\n" "$num" >&2
+      return 1
+      ;;
+  esac
+  echo
+   
+  if [ "$num" -le "$#" ]
+  then
+    eval "${!num#*:}"
+  else
+    printf "\nInvalid response: %s\n" "$num" >&2
+    return 1
+  fi
+}
