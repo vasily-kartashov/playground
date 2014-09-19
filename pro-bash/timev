@@ -1,4 +1,12 @@
-#/usr/bin/env bash
+#!/usr/bin/env bash
+
+#:  Title: get command execution time stored in variables
+#:   Date: 19.09.2014
+#: Author: Vasily Kartashov
+#:  Notes: Creates three variables
+#:         - real
+#:         - user
+#:         - system
 
 timev()
 {
