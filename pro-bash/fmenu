@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+fmenu()
+{
+  if [ -f "$1" ] ; then
+    local IFS=$'\r\n' 
+    read -d '' -r -a lines < "$1"
+    menu "${lines[@]}"
+  else
+    return 1
+  fi
+}
