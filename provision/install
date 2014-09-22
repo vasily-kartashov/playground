@@ -4,15 +4,22 @@ sudo apt-get update
 sudo apt-get install python-software-properties -y
 
 sudo add-apt-repository ppa:cassou/emacs -y
+sudo apt-add-repository ppa:brightbox/ruby-ng-experimental -y
 sudo apt-get update
 
-sudo apt-get install -y ghc emacs24 git make texinfo cabal-install hlint llvm build-essential gdb libedit-dev ruby
+sudo apt-get install -y ghc emacs24 git make texinfo cabal-install hlint llvm build-essential gdb libedit-dev ruby2.0 ruby2.0-dev ruby2.0-doc
 
-sudo git clone https://github.com/haskell/haskell-mode.git /home/vagrant/haskell-mode
+if [ -d "haskell-mode" ]
+then
+  git pull
+else
+  git clone https://github.com/haskell/haskell-mode.git /home/vagrant/haskell-mode
+fi
 cd /home/vagrant/haskell-mode
 sudo make all
 
 cd /home/vagrant
+[ -d "cc-mode" ] && rm -Rf "cc-mode"
 mkdir -p /home/vagrant/cc-mode && cd /home/vagrant/cc-mode
 CC_MODE=5.32.5
 wget http://sourceforge.net/projects/cc-mode/files/cc-mode/${CC_MODE}/cc-mode-${CC_MODE}.tar.gz/download -O cc-mode.tar.gz
@@ -22,11 +29,19 @@ emacs -batch -no-site-file -q -f batch-byte-compile cc-*.el
 [ -f "/usr/bin/opt-3.0" ] || sudo ln -s /usr/bin/opt /usr/bin/opt-3.0
 [ -f "/usr/bin/llc-3.0" ] || sudo ln -s /usr/bin/llc /usr/bin/llc-3.0
 
+cd /home/vagrant
+[ -d "sh-script" ] && rm -Rf "sh-script"
 mkdir -p /home/vagrant/sh-script && cd /home/vagrant/sh-script
 wget http://repo.or.cz/w/emacs.git/blob_plain/HEAD:/lisp/progmodes/sh-script.el
 
 sudo cp /vagrant/provision/.emacs /home/vagrant
 
 cd /home/vagrant
-git clone https://github.com/orangeduck/mpc
+if [ -d "mpc" ]
+then
+  cd mpc
+  git pull
+else
+  git clone https://github.com/orangeduck/mpc
+fi
 
