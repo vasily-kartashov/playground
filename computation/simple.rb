@@ -122,6 +122,32 @@ class DoNothing
 
 end
 
+class LessThan < Struct.new(:left, :right)
+
+  def to_s
+    "#{left} < #{right}"
+  end
+
+  def inspect
+    "#{self}"
+  end
+
+  def reducible?
+    true
+  end
+
+  def reduce(environment)
+    if left.reducible?
+      LessThan.new(left.reduce(environment), right)
+    elsif right.reducible?
+      LessThan.new(left, right.reduce(environment))
+    else
+      Boolean.new(left.value < right.value)
+    end
+  end
+
+end
+
 class Assign < Struct.new(:name, :expression)
 
   def to_s
@@ -175,12 +201,58 @@ class If < Struct.new(:condition, :consequence, :alternative)
 
 end
 
+class Sequence < Struct.new(:first, :second)
+ 
+  def to_s
+    "#{first}; #{second}"
+  end  
+
+  def inspect
+    "#{self}"
+  end
+
+  def reducible?
+    true
+  end
+
+  def reduce(environment)
+    case first
+    when DoNothing.new
+      [second, environment]
+    else
+      reduced_first, reduced_environment = first.reduce(environment)
+      [Sequence.new(reduced_first, second), reduced_environment]
+    end
+  end
+
+end
+
+class While < Struct.new(:condition, :body)
+
+  def to_s
+    "while (#{condition}) { #{body} }"
+  end
+
+  def inspect
+    "#{self}"
+  end
+
+  def reducible?
+    true
+  end
+
+  def reduce(environment)
+    [If.new(condition, Sequence.new(body, self), DoNothing.new), environment]
+  end
+
+end
+
 class Machine < Struct.new(:statement, :environment)
 
   def run
-    puts "--------------------------------------------------"
+    puts ""
     loop do
-      puts sprintf("%-40s | %s", statement, environment)
+      puts sprintf("%-90s | %s", statement, environment)
       break if not statement.reducible?
       self.statement, self.environment = statement.reduce(environment)
     end
