@@ -130,13 +130,13 @@ class Assign < Struct.new(:name, :expression)
 
 end
 
-class Machine < Struct.new(:expression, :environment)
+class Machine < Struct.new(:statement, :environment)
 
   def run
-    puts expression
-    while expression.reducible?
-      self.expression = expression.reduce(environment)
-      puts expression
+    loop do
+      puts sprintf("%-40s | %s", statement, environment)
+      break if not statement.reducible?
+      self.statement, self.environment = statement.reduce(environment)
     end
   end
 

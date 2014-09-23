@@ -1,6 +1,10 @@
 load 'simple.rb'
 
+x = Variable.new(:x)
+environment = { :x => Number.new(2) }
+
 Machine.new(
-  Add.new(Variable.new("x"), Variable.new("y")), { "x" => Number.new(2), "y" => Number.new(5) }
+  Assign.new(:x, Add.new(x, Number.new(1))),
+  environment
 ).run
 
