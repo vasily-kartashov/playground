@@ -6,8 +6,9 @@ rulebook = DFARulebook.new([
   FARule.new(3, 'a', 3), FARule.new(3, 'b', 3)
 ])
 
-puts rulebook.next_state(1, 'a')
-puts rulebook.next_state(1, 'b')
-puts rulebook.next_state(2, 'b')
+dfa_design = DFADesign.new(1, [3], rulebook)
+puts dfa_design.accepts?('a')
+puts dfa_design.accepts?('baa')
+puts dfa_design.accepts?('baba')
 
 
