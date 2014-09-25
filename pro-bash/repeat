@@ -8,3 +8,4 @@ repeat()
   done
   printf ${r:0:$2}
 }
+
