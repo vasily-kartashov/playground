@@ -6,3 +6,8 @@ rulebook = NFARulebook.new([
   FARule.new(3, 'a', 4), FARule.new(3, 'b', 4)
 ])
 
+nfa_design = NFADesign.new(1, [4], rulebook)
+
+puts nfa_design.accepts?('bab')
+puts nfa_design.accepts?('bbbbb')
+puts nfa_design.accepts?('bbabb')
