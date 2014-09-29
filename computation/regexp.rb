@@ -1,3 +1,5 @@
+load 'freemoves.rb'
+
 module Pattern
   def bracket(outer_precedence)
     if precedence < outer_precedence
@@ -9,6 +11,9 @@ module Pattern
   def inspect
     "/#{self}/"
   end
+  def matches?(string)
+    to_nfa_design.accepts?(string)
+  end
 end
 
 class Empty
@@ -18,6 +23,12 @@ class Empty
   end
   def precedence
     3
+  end
+  def to_nfa_design
+    start_state = Object.new
+    accept_states = [start_state]
+    rulebook = NFARulebook.new([])
+    NFADesign.new(start_state, accept_states, rulebook)
   end
 end
 
@@ -29,6 +40,13 @@ class Literal < Struct.new(:character)
   def precedence
     3
   end
+  def to_nfa_design
+    start_state = Object.new
+    accept_state = Object.new
+    rule = FARule.new(start_state, character, accept_state)
+    rulebook = NFARulebook.new([rule])
+    NFADesign.new(start_state, [accept_state], rulebook)
+  end
 end
 
 class Concatenate < Struct.new(:first, :second)
@@ -38,6 +56,18 @@ class Concatenate < Struct.new(:first, :second)
   end
   def precedence
     1
+  end
+  def to_nfa_design
+    first_nfa_design = first.to_nfa_design
+    second_nfa_design = second.to_nfa_design
+    start_state = first_nfa_design.start_state
+    accept_states = second_nfa_design.accept_states
+    rules = first_nfa_design.rulebook.rules + second_nfa_design.rulebook.rules
+    extra_rules = first_nfa_design.accept_states.map { |state|
+      FARule.new(state, nil, second_nfa_design.start_state)
+    }
+    rulebook = NFARulebook.new(rules + extra_rules)
+    NFADesign.new(start_state, accept_states, rulebook)
   end
 end
 
@@ -49,6 +79,18 @@ class Choose < Struct.new(:first, :second)
   def precedence
     0
   end
+  def to_nfa_design
+    first_nfa_design = first.to_nfa_design
+    second_nfa_design = second.to_nfa_design
+    start_state = Object.new
+    accept_states = first_nfa_design.accept_states + second_nfa_design.accept_states
+    rules = first_nfa_design.rulebook.rules + second_nfa_design.rulebook.rules
+    extra_rules = [first_nfa_design, second_nfa_design].map { |nfa_design|
+      FARule.new(start_state, nil, nfa_design.start_state)
+    }
+    rulebook = NFARulebook.new(rules + extra_rules)
+    NFADesign.new(start_state, accept_states, rulebook)
+  end
 end
 
 class Repeat < Struct.new(:pattern)
@@ -58,5 +100,17 @@ class Repeat < Struct.new(:pattern)
   end
   def precedence
     2
+  end
+  def to_nfa_design
+    pattern_nfa_design = pattern.to_nfa_design
+    start_state = Object.new
+    accept_states = pattern_nfa_design.accept_states + [start_state]
+    rules = pattern_nfa_design.rulebook.rules
+    extra_rules = pattern_nfa_design.accept_states.map { |accept_state|
+      FARule.new(accept_state, nil, pattern_nfa_design.start_state)
+    } + 
+    [FARule.new(start_state, nil, pattern_nfa_design.start_state)]
+    rulebook = NFARulebook.new(rules + extra_rules)
+    NFADesign.new(start_state, accept_states, rulebook)
   end
 end
