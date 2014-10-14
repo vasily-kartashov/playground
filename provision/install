@@ -8,7 +8,7 @@ sudo apt-add-repository ppa:brightbox/ruby-ng-experimental -y
 sudo apt-get update
 
 sudo apt-get install -y ghc emacs24 git make texinfo cabal-install hlint llvm build-essential gdb libedit-dev \
-                        ruby2.0 ruby2.0-dev ruby2.0-doc
+                        ruby2.0 ruby2.0-dev ruby2.0-doc scala curl
 
 sudo cabal update
 sudo cabal install MonadRandom
@@ -49,3 +49,4 @@ else
   git clone https://github.com/orangeduck/mpc
 fi
 
+curl -s https://static.rust-lang.org/rustup.sh | sudo sh
