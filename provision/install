@@ -9,6 +9,9 @@ sudo apt-get update
 
 sudo apt-get install -y ghc emacs24 git make texinfo cabal-install hlint llvm build-essential gdb libedit-dev ruby2.0 ruby2.0-dev ruby2.0-doc
 
+sudo cabal update
+sudo cabal install MonadRandom
+
 if [ -d "haskell-mode" ]
 then
   git pull
