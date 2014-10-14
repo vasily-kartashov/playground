@@ -18,9 +18,9 @@ Vagrant.configure("2") do |config|
     config.ssh.keep_alive = true
     config.ssh.forward_agent = false
     config.ssh.forward_x11 = false
+
     config.vagrant.host = :detect
 
-    config.vm.provision "shell", inline: "sudo apt-get install dos2unix -y && dos2unix /vagrant/provision/*"
-    config.vm.provision "shell", path: "provision/install"
+    config.vm.provision "shell", inline: "apt-get install dos2unix -y && dos2unix /vagrant/provision/* && /vagrant/provision/install"
 
 end
