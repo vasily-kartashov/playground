@@ -50,7 +50,7 @@ else
 fi
 
 cd /home/vagrant
-if [- d "rust" ]
+if [ -d "rust" ]
 then
   cd rust
   git pull
