@@ -6,3 +6,7 @@
 (load "sh-script.el")
 
 (add-to-list 'load-path "/home/vagrant/cc-mode/")
+
+(add-to-list 'load-path "/home/vagrant/rust/src/etc/emacs/")
+(autoload 'rust-mode "rust-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
