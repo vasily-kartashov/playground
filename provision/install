@@ -8,7 +8,7 @@ sudo apt-add-repository ppa:brightbox/ruby-ng-experimental -y
 sudo apt-get update
 
 sudo apt-get install -y ghc emacs24 git make texinfo cabal-install hlint llvm build-essential gdb libedit-dev \
-                        ruby2.0 ruby2.0-dev ruby2.0-doc scala curl
+                        ruby2.0 ruby2.0-dev ruby2.0-doc scala curl docker.io
 
 sudo cabal update
 sudo cabal install MonadRandom
